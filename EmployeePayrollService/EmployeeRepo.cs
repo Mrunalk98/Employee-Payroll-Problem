@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeePayrollService.Model.PayrollModel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -104,6 +105,57 @@ namespace EmployeePayrollService
             }
         }
 
-        
+        public double UpdateEmployeePayroll(PayrollUpdateModel payrollModel)
+        {
+            double payroll = 0;
+            try
+            {
+                using(this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    SqlCommand command = new SqlCommand("spUpdateEmployeePayroll", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Payroll_ID", payrollModel.Payroll_ID);
+                    command.Parameters.AddWithValue("@BasicPay", payrollModel.BasicPay);
+                    command.Parameters.AddWithValue("@Deductions", payrollModel.Deductions);
+                    command.Parameters.AddWithValue("@IncomeTax", payrollModel.IncomeTax);
+                    command.Parameters.AddWithValue("@Emp_ID", payrollModel.Emp_ID);
+
+                    this.connection.Open();
+
+                    SqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            employeeModel.ID = Convert.ToInt32(dr["Emp_ID"]);
+                            employeeModel.Name = dr["Emp_Name"].ToString();
+                            employeeModel.BasicPay = Convert.ToDouble(dr["BasicPay"]);
+                            employeeModel.NetPay = Convert.ToDouble(dr["NetPay"]);
+
+                            Console.WriteLine("{0}, {1}, {2}", employeeModel.Name, employeeModel.BasicPay, employeeModel.NetPay);
+                            payroll = employeeModel.BasicPay;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No data found");
+                    }
+                    dr.Close();
+                    this.connection.Close();
+                    return payroll;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
     }
 }

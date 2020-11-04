@@ -10,18 +10,18 @@ namespace EmployeePayrollService
             EmployeeRepo employeeRepo = new EmployeeRepo();
             EmployeeModel employee = new EmployeeModel();
 
-            employee.Name = "Terrisa";
+            employee.Name = "Terrence";
             employee.Salary = 15000;
-            employee.Gender = 'F';
+            employee.Gender = 'M';
             employee.PhoneNumber = "7596568964";
-            employee.Address = "Nagpur";
-            employee.Department = "R&D";
-            employee.BasicPay = 1000;
-            employee.Deductions = 100;
+            employee.Address = "LA";
+            employee.Department = "Marketing";
+            employee.BasicPay = 20000;
+            employee.Deductions = 2000;
             employee.TaxablePay = 0;
             employee.IncomeTax = 0;
-            employee.NetPay = 900;
-            employeeRepo.AddEmployee(employee);
+            employee.NetPay = 18000;
+            //employeeRepo.AddEmployee(employee);
             //employeeRepo.GetEmployee();
         }
     }
