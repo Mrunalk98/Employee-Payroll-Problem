@@ -127,3 +127,10 @@ select Emp_Name, Emp_Phone, Emp_Address, Emp_Gender, Emp_Phone, Dept_Name
 from emp_dept 
 inner join employee on  emp_dept.Emp_ID = employee.Emp_ID
 inner join department on emp_dept.Dept_ID = department.Dept_ID;
+
+--insert into employee values('Mark', '7796515265', 'PA', 'M');
+--insert into payroll values(5000,500, 100, '2020-06-01', 1003)
+
+delete from employee where Emp_Name='Terrence';
+
+SELECT Emp_ID, Emp_Name, Emp_Phone, Emp_Address, Emp_Gender FROM employee where Emp_Name='Mrunal';
